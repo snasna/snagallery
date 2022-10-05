@@ -1,0 +1,13 @@
+package com.snagallery.test;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringExamplsnsgalleryApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringExamplsnsgalleryApplication.class, args);
+	}
+
+}
