@@ -53,4 +53,124 @@
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	<script>
+		$(document).ready(function() {
+			
+			var isDuplicateCheck = false;
+			var isDuplicateId = true;
+			
+			$("#loginIdInput").on("input", function() {
+				
+				isDuplicateCheck = false;
+				isDuplicateId = true;
+				
+				$("#duplicateText").addClass("d-none");
+				$("#availableText").addClass("d-none");
+			});
+			
+			
+			$("#isDuplicateBtn").on("click", function() {
+					
+				let loginId = $("#loginIdInput").val();
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/duplicate_id"
+					, data:{"loginId":loginId}
+					, success:function(data) {
+						
+						isDuplicateCheck = true;
+						
+						
+						if(data.id_duplicate) {
+							$("#duplicateText").removeClass("d-none");
+							$("#availableText").addClass("d-none");
+							isDuplicateId = true;
+						} else {
+							$("#duplicateText").addClass("d-none");
+							$("#availableText").removeClass("d-none");
+							isDuplicateId = false;
+						}
+						
+					}
+					, error:function() {
+						alert("중복체크 에러");
+					}
+				});
+			});
+			
+			
+			$("#signUpBtn").on("click", function() {
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				let passwordConfirm = $("#passwordConfirmInput").val();
+				let name = $("#nameInput").val()
+				let email = $("#emailInput").val()
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				
+				if(isDuplicateCheck == false) {
+					alert("중복체크를 진행해주세요");
+					return ;
+				}
+				
+				
+				if(isDuplicateId) {
+					alert("아이디가 중복되었습니다");
+					return ;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return ;
+				}
+				
+				if(password != passwordConfirm) {
+					alert("비밀번호를 확인하세요");
+					return ;
+				}
+				
+				if(name == "") {
+					alert("이름을 입력하세요");
+					return ;
+				}
+				
+				if(email == "") {
+					alert("이메일을 입력하세요");
+					return ;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/signup"
+					, data:{"loginId":loginId, "password":password, "name":name, "email":email}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.href = "/user/signin/view"
+						} else {
+							alert("회원가입 실패");
+						}
+					}
+					, error:function() {
+						alert("회원가입 에러");
+					}
+					
+				});
+				
+			});
+			
+			
+		});
+	
+	</script>
 </body>

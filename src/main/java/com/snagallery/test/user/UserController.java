@@ -1,5 +1,8 @@
 package com.snagallery.test.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,6 +22,16 @@ public class UserController {
 		public String signupView() {
 			return "user/signup";
 	}
-	
-		
+		// 로그아웃
+		@GetMapping("/user/signout")
+		public String signOut(HttpServletRequest request) {
+			 
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("userId");
+			session.removeAttribute("userLoginId");
+			
+			return "redirect:/user/signin/view";
+			
+		}
 }

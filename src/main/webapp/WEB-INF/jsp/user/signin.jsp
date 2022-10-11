@@ -31,7 +31,7 @@
 							<hr/>
 						</form>
 						
-						<div class="text-center text-secondary">비밀번호를 잊으셨나요?</div>
+						
 					</div>
 					
 				</div>
@@ -42,6 +42,53 @@
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	<script>
+		$(document).ready(function() {
+			$("#loginForm").on("submit", function(e) {
+				
+				e.preventDefault();
+				
+				
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(loginId == "") {
+					
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/user/signin",
+					data:{"loginId":loginId, "password":password},
+					success:function(data) {
+						
+						if(data.result == "success") {
+							location.href = "/post/timeline/view";
+						} else {
+							alert("아이디/비밀번호를 확인하세요!!");
+						}
+						
+					},
+					error:function() {
+						alert("로그인 에러");
+					}
+				});
+				
+				
+				
+			});
+			
+			
+		});
+	
+	</script>
 
 </body>
 </html>

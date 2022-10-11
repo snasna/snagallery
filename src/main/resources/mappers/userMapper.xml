@@ -41,7 +41,7 @@
  	</select>
  	
  	<select id="selectUser" parameterType="map"
- 	resultType="com.san.sns.user.model.User">
+ 	resultType="com.snagallery.test.user.model.User">
  		SELECT 
  			`id`
  			, `loginId`
@@ -61,7 +61,7 @@
  	
  	
  	<select id="selectUserById" parameterType="int"
- 	resultType="com.san.sns.user.model.User">
+ 	resultType="com.snagallery.test.user.model.User">
  		SELECT 
  			`id`
  			, `loginId`
