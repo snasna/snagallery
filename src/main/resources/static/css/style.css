@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+
+
+#wrap {
+    width:1200px; 
+    margin:auto
+}
+
+.nav > .nav-item > .nav-link {
+    background-color:#0080ff; 
+    color:white; 
+    font-size:30px;
+    font-weight: bold;
+}
+.nav > .nav-item > a:hover {
+    background-color:rgb(0, 128, 192);
+}
+
+
+.member-input {width:600px}
+.input-label {width:90px}
+.text-input {width:300px !important;}
+
+address {font-size: 12px; color:gray;}
+
+.login-box {
+	width:400px;
+
+}
+
+.signup-box {
+	width:400px;
+	height:500px;
+}
+
+.image-icon {
+	font-size:20px;
+	
+	color:black;
+}
