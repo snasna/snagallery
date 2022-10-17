@@ -45,46 +45,41 @@
 	<script>
 		$(document).ready(function() {
 			$("#loginForm").on("submit", function(e) {
-				
 				e.preventDefault();
-				
 				
 				let loginId = $("#loginIdInput").val();
 				let password = $("#passwordInput").val();
 				
 				if(loginId == "") {
-					
 					alert("아이디를 입력하세요");
 					return ;
 				}
 				
 				if(password == "") {
 					alert("비밀번호를 입력하세요");
-					return;
+					return ;
 				}
 				
 				$.ajax({
-					type:"post",
-					url:"/user/signin",
-					data:{"loginId":loginId, "password":password},
-					success:function(data) {
+					type:"post"
+					, url:"/user/signin"
+					, data:{"loginId":loginId, "password":password}
+					, success:function(data) {
 						
 						if(data.result == "success") {
-							location.href = "/post/timeline/view";
+							location.href = "/post/mein/view";
 						} else {
-							alert("아이디/비밀번호를 확인하세요!!");
+							alert("아이디/비밀번호 확인해주세요");
 						}
 						
-					},
-					error:function() {
+					}
+					, error:function() {
 						alert("로그인 에러");
 					}
 				});
 				
 				
-				
 			});
-			
 			
 		});
 	

@@ -46,131 +46,136 @@
 					</div>
 					
 				</div>
-				<div class="mt-4 p-3 d-flex justify-content-center align-items-start bg-white  border rounded">
-					계정이 있으신가요? <a href="/user/signin/view">로그인</a>
+				<div class="mt-4 p-3 d-flex justify-content-center align-items-start bg-white  border rounded">	계정이 있으신가요? <a href="/user/signin/view">로그인</a>
 				</div>
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
-	<script>
-		$(document).ready(function() {
+	<script type="text/javascript">
+		
+	$(document).ready(function() {
+		
+		var isDuplicateCheck = false;
+		var isDuplicateId = true;
+		
+		$("#loginIdInput").on("input", function() {
+			isDuplicateCheck = false;
+			isDuplicateId = true;
+			$("#possibleText").addClass("d-none");
+			$("#duplicateText").addClass("d-none");
+		});
+		
+		
+		$("#isDuplicateBtn").on("click", function() {
+			var loginId = $("#loginIdInput").val();
 			
-			var isDuplicateCheck = false;
-			var isDuplicateId = true;
+			if(loginId == "") {
+				alert("아이디를 입력하세요");
+				return ;
+			}
 			
-			$("#loginIdInput").on("input", function() {
-				
-				isDuplicateCheck = false;
-				isDuplicateId = true;
-				
-				$("#duplicateText").addClass("d-none");
-				$("#availableText").addClass("d-none");
-			});
-			
-			
-			$("#isDuplicateBtn").on("click", function() {
+			$.ajax({
+				type:"get",
+				url:"/user/duplicate_id",
+				data:{"loginId":loginId},
+				success:function(data) {
+					//{"is_duplicate":true}
+					//{"is_duplicate":false}
+					// 중복체크 여부 판단
+					isDuplicateCheck = true;
 					
-				let loginId = $("#loginIdInput").val();
-				
-				if(loginId == "") {
-					alert("아이디를 입력하세요");
-					return ;
-				}
-				
-				$.ajax({
-					type:"get"
-					, url:"/user/duplicate_id"
-					, data:{"loginId":loginId}
-					, success:function(data) {
-						
-						isDuplicateCheck = true;
-						
-						
-						if(data.id_duplicate) {
-							$("#duplicateText").removeClass("d-none");
-							$("#availableText").addClass("d-none");
-							isDuplicateId = true;
-						} else {
-							$("#duplicateText").addClass("d-none");
-							$("#availableText").removeClass("d-none");
-							isDuplicateId = false;
-						}
-						
-					}
-					, error:function() {
-						alert("중복체크 에러");
-					}
-				});
-			});
-			
-			
-			$("#signUpBtn").on("click", function() {
-				let loginId = $("#loginIdInput").val();
-				let password = $("#passwordInput").val();
-				let passwordConfirm = $("#passwordConfirmInput").val();
-				let name = $("#nameInput").val()
-				let email = $("#emailInput").val()
-				
-				if(loginId == "") {
-					alert("아이디를 입력하세요");
-					return ;
-				}
-				
-				
-				if(isDuplicateCheck == false) {
-					alert("중복체크를 진행해주세요");
-					return ;
-				}
-				
-				
-				if(isDuplicateId) {
-					alert("아이디가 중복되었습니다");
-					return ;
-				}
-				
-				if(password == "") {
-					alert("비밀번호를 입력하세요");
-					return ;
-				}
-				
-				if(password != passwordConfirm) {
-					alert("비밀번호를 확인하세요");
-					return ;
-				}
-				
-				if(name == "") {
-					alert("이름을 입력하세요");
-					return ;
-				}
-				
-				if(email == "") {
-					alert("이메일을 입력하세요");
-					return ;
-				}
-				
-				$.ajax({
-					type:"post"
-					, url:"/user/signup"
-					, data:{"loginId":loginId, "password":password, "name":name, "email":email}
-					, success:function(data) {
-						
-						if(data.result == "success") {
-							location.href = "/user/signin/view"
-						} else {
-							alert("회원가입 실패");
-						}
-					}
-					, error:function() {
-						alert("회원가입 에러");
+					
+					if(data.is_duplicate) { // 중복된 경우
+						$("#duplicateText").removeClass("d-none");
+						$("#possibleText").addClass("d-none");
+						isDuplicateId = true;
+					} else {  // 중복되지 않은 경우
+						$("#possibleText").removeClass("d-none");
+						$("#duplicateText").addClass("d-none");
+						isDuplicateId = false;
 					}
 					
-				});
-				
+				},
+				error:function() {
+					alert("중복확인 에러");
+				}	
 			});
+			
+		});
+		
+		
+		$("#signUpBtn").on("click", function() {
+			
+			var loginId = $("#loginIdInput").val();
+			var password = $("#passwordInput").val();
+			var passwordConfirm = $("#passwordConfirmInput").val();
+			var name = $("#nameInput").val()
+			var email = $("#emailInput").val()
+			
+			if(loginId == "") {
+				alert("아이디를 입력하세요");
+				return ;
+			}
+			
+			// 중복체크 여부 유효성 검사 
+			// if(isDuplicateCheck == false) {
+			if(!isDuplicateCheck) {
+				alert("중복여부 체크를 진행해주세요");
+				return ;
+			}
+			
+			// 아이디 중복여부 유효성 검사 
+			// if(isDuplicateId == true) {
+			if(isDuplicateId) {
+				alert("중복된 아이디입니다");
+				return ;
+			}
+			
+			if(password == "") {
+				alert("비밀번호를 입력하세요");
+				return ;
+			}
+			
+			if(password != passwordConfirm) {
+				alert("비밀번호를 확인하세요");
+				return ;
+			}
+			
+			if(name == "") {
+				alert("이름을 입력하세요");
+				return ;
+			}
+			
+			if(email == "") {
+				alert("이메일을 입력하세요");
+				return ;
+			}
+			
+			$.ajax({
+				type:"post",
+				url:"/user/signup",
+				data:{"loginId":loginId, "password":password, "name":name, "email":email},
+				success:function(data) {
+					if(data.result == "success") {
+						location.href = "/user/signin/view";
+					} else {
+						alert("회원가입 실패!");
+					}
+					
+				},
+				error:function() {
+					alert("회원가입 에러!");
+				}
+			});
+			
 			
 			
 		});
+		
+	});
+		
 	
 	</script>
 </body>
+</html>

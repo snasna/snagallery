@@ -46,7 +46,6 @@ public class UserRestController {
 	// 아이디 중복 확인 api
 	@GetMapping("/user/duplicate_id")
 	public Map<String, Boolean> isDuplicate(String loginId) {
-
 		Map<String, Boolean> result = new HashMap<>();
 		
 		if(userBO.isDuplicate(loginId)) { 
@@ -75,7 +74,6 @@ public class UserRestController {
 			result.put("result", "success");
 			
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			

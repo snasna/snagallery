@@ -3,14 +3,14 @@ package com.snagallery.test.user.model;
 import java.util.Date;
 
 public class User {
-
 	private int id;
 	private String loginId;
 	private String password;
 	private String name;
 	private String email;
-	private Date createdAt;
+	private Date creteadAt;
 	private Date updatedAt;
+	
 	public int getId() {
 		return id;
 	}
@@ -41,11 +41,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreteadAt() {
+		return creteadAt;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreteadAt(Date creteadAt) {
+		this.creteadAt = creteadAt;
 	}
 	public Date getUpdatedAt() {
 		return updatedAt;
@@ -53,7 +53,6 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 	
 	
 }

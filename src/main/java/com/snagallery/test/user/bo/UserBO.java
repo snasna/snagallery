@@ -14,30 +14,31 @@ public class UserBO {
 	private UserDAO userDAO;
 	
 	public int addUser(String loginId, String password, String name, String email) {
+		String encryptPassword = EncryptUtils.md5(password);
 		
-		return userDAO.insertUser(loginId, password, name, email);
+		return userDAO.insertUser(loginId, encryptPassword, name, email);
 	}
 	
-		public boolean isDuplicate(String loginId) {
-			
-			
-			int count = userDAO.selectCountLoginId(loginId);
-			if(count == 0) {
-				return false;
-			} else {
-				return true;
-			}
+	
+	public boolean isDuplicate(String loginId) {
+		
+		int count = userDAO.selectCountLoginId(loginId);
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
 		}
-		
-		public User getUser(String loginId, String password) {
-		 	String encryptPassword = EncryptUtils.md5(password);
-		 	return userDAO.selectUser(loginId, encryptPassword);
-		}
-		
-		
-		public User getUserById(int id) {
-			return userDAO.selectUserById(id);
-		}
-		
-
 	}
+	
+	public User getUser(String loginId, String password) {
+	 	String encryptPassword = EncryptUtils.md5(password);
+	 	return userDAO.selectUser(loginId, encryptPassword);
+	}
+	
+	// id로 사용자 정보 조회 기능
+	public User getUserById(int id) {
+		return userDAO.selectUserById(id);
+	}
+	
+
+}
