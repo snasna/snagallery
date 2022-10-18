@@ -6,11 +6,11 @@ public class Post {
 	
 	private int id;
 	private int userId;
+	private String subject;
 	private String content;
 	private String imagePath;
 	private Date createdAt;
 	private Date updatedAt;
-	
 	
 	public int getId() {
 		return id;
@@ -23,6 +23,12 @@ public class Post {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	public String getContent() {
 		return content;
@@ -48,6 +54,9 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
+	
 	
 	
 

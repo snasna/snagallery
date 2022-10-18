@@ -22,22 +22,22 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 			<div class="col-9 my-5">
 				<h2 class="text-center">글 작성</h2>
-				<select  class="chk" id="bgnoinsert" title="게시판을 선택하세요">
-					<option value="" selected>게시판을 선택해주세요</option>
-					<option value="1">공지사항</option>
-					<option value="2">뉴스</option>
-					<option value="2">커뮤니티</option>
-				</select>
-				<select  class="chk" id="bgnoinsert" title="게시판을 선택하세요">
-					<option value="" selected>게시판을 선택해주세요</option>
-					<option value="1">운동 갤러리</option>
-					<option value="2">게임 갤러리</option>
-				</select> 
+				<div>
+					<select  onchange="categoryChange(this)">
+						<option  selected>게시판을 선택해주세요</option>
+						<option value="noti">공지사항</option>
+						<option value="new" >뉴스</option>
+						<option value="commu" >커뮤니티</option>
+					</select>
+					<select  id="Commu">
+						<option selected>커뮤니티를 선택해주세요</option>
+					</select>
+				
+				</div> 
 				<div class="d-flex mt-3">
 					<label class="col-2">제목 : </label> 
 					<input type="text" class="form-control col-10" id="titleInput">
 				</div>
-				
 				<textarea class="form-control mt-2" rows="7" id="Summernote" name="summernote"></textarea>
 				<input type="file" class="mt-2" id="fileInput">
 				
@@ -52,8 +52,7 @@
 </body>
 	<script>
 	$(document).ready(function () {
-
-        $('#Summernote').summernote({
+		  $('#Summernote').summernote({
             lang: 'ko-KR',
             height: 300,
             placeholder: '내용을 입력하세요',
@@ -114,7 +113,7 @@
 				, success:function(data) {
 					
 					if(data.result == "success") {
-						location.href="/post/list/view";
+						history.back();
 					} else {
 						alert("입력 실패");
 					}

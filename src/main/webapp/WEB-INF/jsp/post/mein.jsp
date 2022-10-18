@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<c:import url="/WEB-INF/jsp/include/header-mein.jsp" />
+		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
 </body>

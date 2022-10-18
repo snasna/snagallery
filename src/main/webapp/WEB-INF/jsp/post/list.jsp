@@ -19,7 +19,7 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 			<section class="d-flex justify-content-center">
 			<div class="col-9 my-5">
-				<h2 class="text-center">커뮤니티</h2>
+				<h2 class="text-center"> ${post.topic }</h2>
 				
 				<table class="table text-center mt-3">
 					<thead>
