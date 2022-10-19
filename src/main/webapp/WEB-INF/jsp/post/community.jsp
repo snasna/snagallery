@@ -15,7 +15,7 @@
   	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
 <body>
-	<div id="wrap">
+	<div id="wrap" class="container">
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 			<section class="d-flex justify-content-center">
 			<div class="col-9 my-5">
@@ -27,8 +27,6 @@
 							<th>No.</th>
 							<th>제목</th>
 							<th>시간</th>
-							<th>추천수</th>
-							<th>조회수</th>
 						</tr>
 						
 					</thead>
@@ -39,8 +37,6 @@
 							<td>${post.id }</td>
 							<td><a href="/post/detail/view?id=${post.id }"> ${post.subject } </a></td>
 							<td><fmt:formatDate value="${post.createdAt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td>1</td>
-							<td>1</td>
 						</tr>
 						
 						</c:forEach>

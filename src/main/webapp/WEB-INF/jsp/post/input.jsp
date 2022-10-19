@@ -16,6 +16,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> 
+  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+  	
 </head>
 <body>
 	<div id="wrap">
@@ -23,13 +27,13 @@
 			<div class="col-9 my-5">
 				<h2 class="text-center">글 작성</h2>
 				<div>
-					<select  onchange="categoryChange(this)">
+					<select id="type">
 						<option  selected>게시판을 선택해주세요</option>
 						<option value="noti">공지사항</option>
 						<option value="new" >뉴스</option>
 						<option value="commu" >커뮤니티</option>
 					</select>
-					<select  id="Commu">
+					<select  id="commu">
 						<option selected>커뮤니티를 선택해주세요</option>
 					</select>
 				
@@ -38,7 +42,7 @@
 					<label class="col-2">제목 : </label> 
 					<input type="text" class="form-control col-10" id="titleInput">
 				</div>
-				<textarea class="form-control mt-2" rows="7" id="Summernote" name="summernote"></textarea>
+				<textarea class="form-control mt-2" rows="7" id="summernote"></textarea>
 				<input type="file" class="mt-2" id="fileInput">
 				
 				<div class="d-flex justify-content-between mt-3">
@@ -51,83 +55,83 @@
 	</div>
 </body>
 	<script>
-	$(document).ready(function () {
-		  $('#Summernote').summernote({
-            lang: 'ko-KR',
-            height: 300,
-            placeholder: '내용을 입력하세요',
-            toolbar: [
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-                ['color', ['forecolor', 'color']],
-                ['table', ['table']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['insert', ['picture', 'link', 'video']],
-                ['view', ['fullscreen', 'help']]
-              ],
-              fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체',
-                '굴림', '돋음체', '바탕체'],
-              fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36',
-                '50', '72']
-           
-            
-        });
-        	
-        	$("#backBtn").on("click", function() {
+	$(document).ready(function() {
+		
+		 $('#summernote').summernote({
+	            lang: 'ko-KR',
+	            height: 300,
+	            placeholder: '내용을 입력하세요',
+	            toolbar: [
+	                ['fontname', ['fontname']],
+	                ['fontsize', ['fontsize']],
+	                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+	                ['color', ['forecolor', 'color']],
+	                ['table', ['table']],
+	                ['para', ['ul', 'ol', 'paragraph']],
+	                ['height', ['height']],
+	                ['insert', ['picture', 'link', 'video']],
+	                ['view', ['fullscreen', 'help']]
+	              ],
+	              fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체',
+	                '굴림', '돋음체', '바탕체'],
+	              fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36',
+	                '50', '72']
+	           
+	            
+	        });
+		 
+     	$("#backBtn").on("click", function() {
 			let back = $("#backBtn").val();
 			if(back == "") {
 				history.back();
 				return ;
+				}	
+			});
+		
+     	 $("#saveBtn").on("click", function() {
+				let title = $("#titleInput").val();
+				let summernote = $("#summernoteInput").val();
 				
-			}
-        	
-
-	  		$("#saveBtn").on("click", function() {
-			let title = $("#titleInput").val();
-			let content = $("#Summernote").val();
-			
-			if(title == "") {
-				alert("제목을 입력하세요");
-				return ;
-			}
-			
-			if(content == "") {
-				alert("내용을 입력하세요");
-				return ;
-			}
-			
-			var formData = new FormData();
-			formData.append("title", title);
-			formData.append("summernote", content);
-			formData.append("file", $("#fileInput")[0].files[0]);
-			
-			$.ajax({
-				type:"post"
-				, url:"/post/create"
-				, data:formData
-				, enctype:"multipart/form-data"  
-				, processData:false  
-				, contentType:false 
-				, success:function(data) {
-					
-					if(data.result == "success") {
-						history.back();
-					} else {
-						alert("입력 실패");
+				if(title == "") {
+					alert("제목을 입력하세요");
+					return ;
+				}
+				
+				if(summernote == "") {
+					alert("내용을 입력하세요");
+					return ;
+				}
+				
+				var formData = new FormData();
+				formData.append("title", title);
+				formData.append("summernote", summernote);
+				formData.append("file", $("#fileInput")[0].files[0]);
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/create"
+					, data:formData
+					, enctype:"multipart/form-data"  // 파일 업로드 필수 옵션
+					, processData:false  // 파일 업로드 필수 옵션
+					, contentType:false  // 파일 업로드 필수 옵션
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							history.back();
+							//history.back();
+						} else {
+							alert("입력 실패");
+						}
+						
 					}
-					
-				}
-				, error:function() {
-					alert("입력 에러");
-				}
-			})
-			
-			
-			
-		});
-	});
-	});
-</script>
+					, error:function() {
+						alert("입력 에러");
+					}
+				})
+				
+				
+		 		});
+		 });
+	
+	</script>
 </html>

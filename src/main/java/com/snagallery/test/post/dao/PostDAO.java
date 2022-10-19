@@ -12,17 +12,18 @@ public interface PostDAO {
 	
 	public int insertPost(
 			@Param("userId") int userId
+			, @Param("title") String title
 			, @Param("content") String content
 			, @Param("imagePath") String imagePath);
 	
-	public Post selectPost(@Param("postId") int postId);
+	public List<Post> selectPostList(@Param("userId") int userId);
 	
-	public int deletePost(@Param("postId") int postId, @Param("userId") int userId);
+	public Post selectPost(@Param("id") int id);
 	
-
-	public List<Post> selectPostList();
-	
-	public Post selectPostByIdAndUserId(@Param("id") int id, @Param("userId") int userId);
+	public int updatePost(
+			@Param("postId") int postId
+			, @Param("title") String title
+			, @Param("content") String content);
 	
 	public int deletePost(@Param("postId") int postId);
 

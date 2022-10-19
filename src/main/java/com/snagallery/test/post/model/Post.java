@@ -3,7 +3,6 @@ package com.snagallery.test.post.model;
 import java.util.Date;
 
 public class Post {
-	
 	private int id;
 	private int userId;
 	private String subject;
@@ -11,6 +10,7 @@ public class Post {
 	private String imagePath;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	
 	public int getId() {
 		return id;
@@ -54,9 +54,6 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-	
 	
 	
 
