@@ -23,7 +23,7 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
-	// 메모 입력 기능
+	// 주제 입력 기능
 	@PostMapping("/create")
 	public Map<String, String> create(
 			@RequestParam("title") String title
@@ -50,6 +50,7 @@ public class PostRestController {
 	@PostMapping("/update")
 	public Map<String, String> updatePost(
 			@RequestParam("postId") int postId
+			, @RequestParam("subject")  String subject
 			, @RequestParam("title") String title
 			, @RequestParam("content") String content) {
 		

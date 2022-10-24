@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.snagallery.test.post.bo.PostBO;
@@ -40,22 +39,22 @@ public class PostController {
 		return "post/community";
 	}
 	
-	@GetMapping("/mein/view")
+	@GetMapping("/post/mein/view")
 	public String meinView() {
 		return "post/mein";
 	}
 	
-	@GetMapping("/notice/view")
+	@GetMapping("/post/notice/view")
 	public String noticeView() {
 		return "post/notice";
 	}
 	
-	@GetMapping("/new/view")
+	@GetMapping("/post/new/view")
 	public String newView() {
 		return "post/new";
 	}
 	
-	@GetMapping("/list/view")
+	@GetMapping("/post/list/view")
 	public String list(HttpServletRequest request
 			, Model model) {
 		
