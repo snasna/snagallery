@@ -29,14 +29,14 @@
 				<div>
 					<select id="subjectInput">
 						<option  selected>게시판을 선택해주세요</option>
-						<option>공지사항</option>
-						<option>뉴스</option>
-						<option>커뮤니티</option>
+						<option value="noti">공지사항</option>
+						<option value="new">뉴스</option>
+						<option value="commu">커뮤니티</option>
 					</select>
 					<!--  <select  id="subjectInput2">
 						<option  selected>게시판을 선택해주세요</option>
-						<option>운동갤러리</option>
-						<option>게임갤러리</option>
+						<option >운동갤러리</option>
+						<option >게임갤러리</option>
 					</select>
 					-->
 				</div> 
@@ -44,7 +44,7 @@
 					<label class="col-2">제목 : </label> 
 					<input type="text" class="form-control col-10" id="titleInput">
 				</div>
-				<textarea class="form-control mt-2" rows="7" id="summernote" parameter=content></textarea>
+				<textarea class="form-control mt-2" rows="7" id="summernoteInput"></textarea>
 				<input type="file" class="mt-2" id="fileInput">
 				
 				<div class="d-flex justify-content-between mt-3">
@@ -59,7 +59,18 @@
 	<script>
 	$(document).ready(function() {
 		
-		 $('#summernote').summernote({
+		$("#subjectInput2").hide();
+		
+		//$("#subjectInput").change(function() {
+    		//let subject = $("#subjectInput option:selected").val();
+    		//if(subject == "커뮤니티") {
+    		//	$("#subjectInput2").show();
+    		//}else {
+    		//	$("#subjectInput2").hide();
+    		//}
+    	//});
+		
+		 $('#summernoteInput').summernote({
 	            lang: 'ko-KR',
 	            height: 300,
 	            placeholder: '내용을 입력하세요',
@@ -90,6 +101,7 @@
 				}	
 			});
 		
+     	
      	 $("#saveBtn").on("click", function() {
      			let subject = $("#subjectInput").val();
 				let title = $("#titleInput").val();
@@ -99,6 +111,7 @@
 					alert("주제를 선택하세요");
 					return ;
 				}
+				
 				
 				if(title == "") {
 					alert("제목을 입력하세요");
@@ -111,9 +124,8 @@
 				}
 				
 				var formData = new FormData();
-				formData.append("subject", subject);
 				formData.append("title", title);
-				formData.append("summernote", summernote);
+				formData.append("content", summernote);
 				formData.append("file", $("#fileInput")[0].files[0]);
 				
 				$.ajax({
@@ -124,10 +136,10 @@
 					, processData:false  // 파일 업로드 필수 옵션
 					, contentType:false  // 파일 업로드 필수 옵션
 					, success:function(data) {
-						
+	 						
 						if(data.result == "success") {
-							location.href="/post/list/view";
-							//history.back();
+							//location.href="/post/list/view";
+							history.back();
 						} else {
 							alert("입력 실패");
 						}

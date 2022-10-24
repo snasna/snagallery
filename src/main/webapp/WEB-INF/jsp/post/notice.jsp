@@ -27,8 +27,6 @@
 							<th>No.</th>
 							<th>제목</th>
 							<th>시간</th>
-							<th>추천수</th>
-							<th>조회수</th>
 						</tr>
 						
 					</thead>

@@ -27,8 +27,6 @@
 							<th>No.</th>
 							<th>제목</th>
 							<th>시간</th>
-							<th>추천수</th>
-							<th>조회수</th>
 						</tr>
 						
 					</thead>
@@ -62,7 +60,7 @@
 			
 			if(login == 0) {
 				alert("로그인 후 이용가능합니다");
-				history.back();
+				location.href="/post/signin/view";
 				return ;
 			}
 				

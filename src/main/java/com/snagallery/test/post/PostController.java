@@ -9,24 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.snagallery.test.post.bo.PostBO;
 import com.snagallery.test.post.model.Post;
 
 @Controller
+@RequestMapping("/post")
 public class PostController {
 
 	@Autowired
 	private PostBO postBO;
 	
-	@GetMapping("/post/input/view")
+	@GetMapping("/input/view")
 	public String inputView() {
 		
 		return "post/input";
 	}
 	
-	@GetMapping("/post/community/view")
+	@GetMapping("/community/view")
 	public String community(HttpServletRequest request
 				, Model model) {
 			
@@ -39,22 +41,30 @@ public class PostController {
 		return "post/community";
 	}
 	
-	@GetMapping("/post/mein/view")
+	@GetMapping("/mein/view")
 	public String meinView() {
 		return "post/mein";
 	}
 	
-	@GetMapping("/post/notice/view")
+	@GetMapping("/notice/view")
 	public String noticeView() {
 		return "post/notice";
 	}
 	
-	@GetMapping("/post/new/view")
-	public String newView() {
+	@GetMapping("/new/view")
+	public String newView(HttpServletRequest request
+			, Model model) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<Post> postList = postBO.getPostList(userId);
+		
+		model.addAttribute("postList", postList);
 		return "post/new";
 	}
 	
-	@GetMapping("/post/list/view")
+	@GetMapping("/list/view")
 	public String list(HttpServletRequest request
 			, Model model) {
 		
@@ -68,13 +78,13 @@ public class PostController {
 		return "post/list";
 	}
 	
-	@GetMapping("/post/create/view")
-	public String memoInput() {
+	@GetMapping("/create/view")
+	public String snaInput() {
 		return "post/input";
 	}
 	
-	@GetMapping("/post/detail/view")
-	public String memoDetail(@RequestParam("id") int id, Model model) {
+	@GetMapping("/detail/view")
+	public String snaDetail(@RequestParam("id") int id, Model model) {
 		
 		Post post = postBO.getPost(id);
 		

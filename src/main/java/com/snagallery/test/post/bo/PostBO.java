@@ -16,7 +16,7 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	public int addPost(int userId,  String title, String content, MultipartFile file) {
+	public int addPost(int userId, String title, String content, MultipartFile file) {
 		
 		
 		String imagePath = null;
