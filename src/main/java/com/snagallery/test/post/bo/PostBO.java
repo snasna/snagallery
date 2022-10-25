@@ -16,7 +16,7 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	public int addPost(int userId, String title, String content, MultipartFile file) {
+	public int addPost(int userId,  String title, String content, MultipartFile file) {
 		
 		
 		String imagePath = null;
@@ -30,7 +30,7 @@ public class PostBO {
 		
 		}
 		
-		return postDAO.insertPost(userId, title, content, imagePath);
+		return postDAO.insertPost(userId,  title, content, imagePath);
 	}
 	
 	
@@ -45,8 +45,8 @@ public class PostBO {
 	}
 	
 	
-	public int updatePost(int postId, String title, String content) {
-		return postDAO.updatePost(postId, title, content);
+	public int updatePost(int postId,  String title, String content) {
+		return postDAO.updatePost(postId,  title, content);
 	}
 	
 	

@@ -27,18 +27,18 @@
 			<div class="col-9 my-5">
 				<h2 class="text-center">글 작성</h2>
 				<div>
-					<select id="subjectInput">
+					<select id="topicInput">
 						<option  selected>게시판을 선택해주세요</option>
-						<option value="noti">공지사항</option>
-						<option value="new">뉴스</option>
-						<option value="commu">커뮤니티</option>
-					</select>
-					<!--  <select  id="subjectInput2">
+						<option value="noti" th:selected="${post.topic.name() == 'noti' }">공지사항</option>
+						<option value="new" th:selected="${post.topic.name() == 'new' }">뉴스</option>
+						<option value="commu" th:selected="${post.topic.name() == 'commun' }">커뮤니티</option>
+					  </select>
+					 <select  id="topicInput2">
 						<option  selected>게시판을 선택해주세요</option>
 						<option >운동갤러리</option>
 						<option >게임갤러리</option>
 					</select>
-					-->
+					
 				</div> 
 				<div class="d-flex mt-3">
 					<label class="col-2">제목 : </label> 
@@ -59,16 +59,9 @@
 	<script>
 	$(document).ready(function() {
 		
-		$("#subjectInput2").hide();
+		$("#topicInput2").hide();
 		
-		//$("#subjectInput").change(function() {
-    		//let subject = $("#subjectInput option:selected").val();
-    		//if(subject == "커뮤니티") {
-    		//	$("#subjectInput2").show();
-    		//}else {
-    		//	$("#subjectInput2").hide();
-    		//}
-    	//});
+		
 		
 		 $('#summernoteInput').summernote({
 	            lang: 'ko-KR',
@@ -101,13 +94,21 @@
 				}	
 			});
 		
+     	$("#topicInput").change(function() {
+    		let topic = $("#topicInput option:selected").val();
+    		if(topic == "commu") {
+    			$("#topicInput2").show();
+    		}else {
+    			$("#topicInput2").hide();
+    		}
+    	});
      	
      	 $("#saveBtn").on("click", function() {
-     			let subject = $("#subjectInput").val();
+     			let topic = $("#topicInput").val();
 				let title = $("#titleInput").val();
 				let summernote = $("#summernoteInput").val();
 				
-				if(subject == "게시판을 선택해주세요") {
+				if(topic == "게시판을 선택해주세요") {
 					alert("주제를 선택하세요");
 					return ;
 				}
@@ -136,9 +137,9 @@
 					, processData:false  // 파일 업로드 필수 옵션
 					, contentType:false  // 파일 업로드 필수 옵션
 					, success:function(data) {
-	 						
+	 				
 						if(data.result == "success") {
-							//location.href="/post/list/view";
+							//location.href="/post/new/view";
 							history.back();
 						} else {
 							alert("입력 실패");

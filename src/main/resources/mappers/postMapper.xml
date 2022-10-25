@@ -11,7 +11,6 @@
 			`post`
 		(
 			`userId`
-			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -21,7 +20,6 @@
 		VALUES 
 		(
 			#{userId}
-			, #{topic}
 			, #{title}
 			, #{content}
 			, #{imagePath}
@@ -37,7 +35,6 @@
 		SELECT 
 			`id`
 			, `userId`
-			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -57,7 +54,6 @@
 		SELECT 
 			`id`
 			, `userId`
-			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -75,7 +71,7 @@
 		UPDATE 
 			`post`
 		SET 
-			`subject` = #{title}
+			 `subject` = #{title}
 			, `content` = #{content}
 			, `updatedAt` = now()
 		WHERE 
