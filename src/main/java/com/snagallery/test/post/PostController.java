@@ -47,7 +47,15 @@ public class PostController {
 	}
 	
 	@GetMapping("/notice/view")
-	public String noticeView() {
+	public String noticeView(HttpServletRequest request
+			, Model model) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<Post> postList = postBO.getPostList(userId);
+		
+		model.addAttribute("postList", postList);	
 		return "post/notice";
 	}
 	
@@ -84,9 +92,9 @@ public class PostController {
 	}
 	
 	@GetMapping("/detail/view")
-	public String snaDetail(@RequestParam("id") int id, Model model) {
+	public String snaDetail(@RequestParam("topic") String topic, Model model) {
 		
-		Post post = postBO.getPost(id);
+		Post post = postBO.getPost(topic);
 		
 		model.addAttribute("post", post);
 		

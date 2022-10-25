@@ -28,10 +28,10 @@
 				<h2 class="text-center">글 작성</h2>
 				<div>
 					<select id="topicInput">
-						<option  selected>게시판을 선택해주세요</option>
-						<option value="noti" th:selected="${post.topic.name() == 'noti' }">공지사항</option>
-						<option value="new" th:selected="${post.topic.name() == 'new' }">뉴스</option>
-						<option value="commu" th:selected="${post.topic.name() == 'commun' }">커뮤니티</option>
+						<option selected>게시판을 선택해주세요</option>
+						<option value="noti" >공지사항</option>
+						<option value="new" >뉴스</option>
+						<option value="commu" >커뮤니티</option>
 					  </select>
 					 <select  id="topicInput2">
 						<option  selected>게시판을 선택해주세요</option>
@@ -43,7 +43,7 @@
 				<div class="d-flex mt-3">
 					<label class="col-2">제목 : </label> 
 					<input type="text" class="form-control col-10" id="titleInput">
-				</div>
+				</div> <br>
 				<textarea class="form-control mt-2" rows="7" id="summernoteInput"></textarea>
 				<input type="file" class="mt-2" id="fileInput">
 				
@@ -61,7 +61,11 @@
 		
 		$("#topicInput2").hide();
 		
+		$('#topicInput').val('noti').prop("selected",true);
 		
+		$('#topicInput').val('new').prop("selected",true);
+		
+		$('#topicInput').val('commun').prop("selected",true);
 		
 		 $('#summernoteInput').summernote({
 	            lang: 'ko-KR',
@@ -108,13 +112,13 @@
 				let title = $("#titleInput").val();
 				let summernote = $("#summernoteInput").val();
 				
+				
 				if(topic == "게시판을 선택해주세요") {
 					alert("주제를 선택하세요");
 					return ;
 				}
-				
-				
-				if(title == "") {
+					
+			if(title == "") {
 					alert("제목을 입력하세요");
 					return ;
 				}
@@ -125,6 +129,7 @@
 				}
 				
 				var formData = new FormData();
+				formData.append("topic", topic);
 				formData.append("title", title);
 				formData.append("content", summernote);
 				formData.append("file", $("#fileInput")[0].files[0]);

@@ -16,7 +16,7 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	public int addPost(int userId,  String title, String content, MultipartFile file) {
+	public int addPost(int userId, String topic, String title, String content, MultipartFile file) {
 		
 		
 		String imagePath = null;
@@ -30,7 +30,7 @@ public class PostBO {
 		
 		}
 		
-		return postDAO.insertPost(userId,  title, content, imagePath);
+		return postDAO.insertPost(userId, topic, title, content, imagePath);
 	}
 	
 	
@@ -40,24 +40,24 @@ public class PostBO {
 	}
 	
 	
-	public Post getPost(int id) {
-		return postDAO.selectPost(id);
+	public Post getPost(String topic) {
+		return postDAO.selectPost(topic);
 	}
 	
 	
-	public int updatePost(int postId,  String title, String content) {
-		return postDAO.updatePost(postId,  title, content);
+	public int updatePost(int postId, String topic,  String title, String content) {
+		return postDAO.updatePost(postId, topic, title, content);
 	}
 	
 	
-	public int deletePost(int postId) {
+	public int deletePost(String topic) {
 		
 		
-		Post post = postDAO.selectPost(postId);
+		Post post = postDAO.selectPost(topic);
 		
 		FileManagerService.removeFile(post.getImagePath());
 		
-		return postDAO.deletePost(postId);
+		return postDAO.deletePost(topic);
 	}
 	
 	

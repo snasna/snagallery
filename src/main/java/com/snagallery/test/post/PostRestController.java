@@ -26,7 +26,8 @@ public class PostRestController {
 	// 글쓰기 입력 기능
 	@PostMapping("/create")
 	public Map<String, String> create(
-			@RequestParam("title") String title
+			@RequestParam("topic") String topic
+			,@RequestParam("title") String title
 			, @RequestParam("content") String content
 			, @RequestParam(value="file", required=false) MultipartFile file 
 			, HttpServletRequest request) {
@@ -34,7 +35,7 @@ public class PostRestController {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postBO.addPost(userId,  title, content, file);
+		int count = postBO.addPost(userId, topic, title, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		
@@ -51,10 +52,11 @@ public class PostRestController {
 	@PostMapping("/update")
 	public Map<String, String> updatePost(
 			@RequestParam("postId") int postId
+			,@RequestParam("topic") String topic
 			, @RequestParam("title") String title
 			, @RequestParam("content") String content) {
 		
-		int count = postBO.updatePost(postId, title, content);
+		int count = postBO.updatePost(postId, topic, title, content);
 		
 		Map<String, String> result = new HashMap<>();
 		if(count == 1) {
@@ -69,9 +71,9 @@ public class PostRestController {
 	
 	
 	@GetMapping("/delete")
-	public Map<String, String> deletePost(@RequestParam("postId") int postId) {
+	public Map<String, String> deletePost(@RequestParam("topic") String topic) {
 	
-		int count = postBO.deletePost(postId);
+		int count = postBO.deletePost(topic);
 		
 		Map<String, String> result = new HashMap<>();
 		

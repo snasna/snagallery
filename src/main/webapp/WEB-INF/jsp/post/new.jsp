@@ -32,10 +32,10 @@
 					</thead>
 					<tbody>
 					
-						<c:forEach var="post" items="${postList }" >
+						<c:forEach var="post" items="${post.topic }"  varStatus="2">
 						<tr>
 							<td>${post.id }</td>
-							<td><a href="/post/detail/view?id=${post.id }"> ${post.subject } </a></td>
+							<td><a href="/post/detail/view?new=${post.id }"> ${post.subject } </a></td>
 							<td><fmt:formatDate value="${post.createdAt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 						

@@ -11,6 +11,7 @@
 			`post`
 		(
 			`userId`
+			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -20,6 +21,7 @@
 		VALUES 
 		(
 			#{userId}
+			, #{topic}
 			, #{title}
 			, #{content}
 			, #{imagePath}
@@ -35,6 +37,7 @@
 		SELECT 
 			`id`
 			, `userId`
+			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -44,7 +47,7 @@
 			`post`
 		WHERE
 			`userId` = #{userId}
-		ORDER BY 
+		ORDER BY  
 			`id` DESC
 	
 	</select>
@@ -54,6 +57,7 @@
 		SELECT 
 			`id`
 			, `userId`
+			, `topic`
 			, `subject`
 			, `content`
 			, `imagePath`
@@ -61,8 +65,9 @@
 			, `updatedAt`
 		FROM 
 			`post`
-		WHERE 
-			`id` = #{id}
+		WHERE
+			`topic` = #{topic} 
+			,`id` = #{id}
 	
 	</select>
 	
@@ -71,11 +76,12 @@
 		UPDATE 
 			`post`
 		SET 
-			 `subject` = #{title}
+			`topic` = # {topic}
+			, `subject` = #{title}
 			, `content` = #{content}
 			, `updatedAt` = now()
 		WHERE 
-			`id` = #{postId}
+			`id` = #{id}
 	
 	</update>
 	
@@ -84,7 +90,7 @@
 		DELETE FROM 
 			`post`
 		WHERE
-			`id` = #{postId}
+			`id` = #{id}
 	</delete>
 	
 	

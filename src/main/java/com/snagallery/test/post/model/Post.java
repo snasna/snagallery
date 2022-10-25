@@ -5,11 +5,14 @@ import java.util.Date;
 public class Post {
 	private int id;
 	private int userId;
+	private String topic;
 	private String subject;
 	private String content;
 	private String imagePath;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -21,6 +24,12 @@ public class Post {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public String getTopic() {
+		return topic;
+	}
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 	public String getSubject() {
 		return subject;
